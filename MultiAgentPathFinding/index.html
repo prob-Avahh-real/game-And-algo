@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- 库引入 -->
+	<script src="libraries/p5.js"></script>
+	<script src="libraries/p5.sound.js"></script>
+	<script src="libraries/p5.dom.js"></script>
+	<script src="libraries/lodash.js"></script>
+	<script src="libraries/jquery-3.5.1.js"></script>
+	<script src="libraries/jquery-ui.js"></script>
+	<!-- 自己写的类 -->
+	<script src="sketch.js" charset="utf-8"></script>
+	<script src="BasicConfigs.js" charset="utf-8"></script>
+	<script src="Environment.js" charset="utf-8"></script>
+	<script src="Cell.js" charset="utf-8"></script>
+	<script src="Agent.js" charset="utf-8"></script>
+	<script src="configs.js" charset="utf-8"></script>
+	<script src="utils.js" charset="utf-8"></script>
+	<script src="CommonMapSettings.js" charset="utf-8"></script>
+	<script src="AStar.js" charset="utf-8"></script>
+	<script src="AStar_v2.js" charset="utf-8"></script>
+	<script src="CBS.js" charset="utf-8"></script>
+	<script src="CBS_v2.js" charset="utf-8"></script>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="indexStyle.css">
+
+</head>
+
+<body>
+	<div>
+		<button type="button" class="btn2" id="manual-btn" onclick="togglePopup()">操作手册</button>
+	</div>
+
+	<div class="settings">
+		<div class="agentBox">
+			<label class="label">小车名称: </label><input type="text" class="input" id="agentName">
+			<button type="button" class="btn1" id="addCar">添加小车</button>
+			<button type="button" class="btn1" id="delCar">删除小车</button>
+		</div>
+		<div class="btnBox" id="btnBox">
+			<label class="label">选择Agent: </label>
+			<select class="select" id="sel">
+				<!-- <option value="agent1" class="agentOption">agent1</option> -->
+				<!-- <option value="agent2" class="agentOption">agent2</option> -->
+			</select>
+			<input type="radio" class="radiobtn" name="group1" value="1" id="start"><label class="radiolabel" for="start">起点</label>
+			<input type="radio" class="radiobtn" name="group1" value="2" id="end"><label class="radiolabel" for="end">终点</label>
+			<input type="radio" class="radiobtn" name="group1" value="3" id="block" checked="checked"><label class="radiolabel" for="block">障碍物</label>
+		</div>
+		<div class="algBox">
+			<label class="label">选择算法: </label>
+			<select class="select" id="alg">
+				<option value="alg1" class="selectOption">原始CBS算法</option>
+				<option value="alg2" class="selectOption">改进CBS算法</option>
+			</select>
+		</div>
+	</div>
+	<div class="settings">
+		<div class="inputBox">
+			<div class="mode">
+				<label class="label">地图模式: </label>
+				<select class="select" id="mapMode">
+					<option value="userMode" class="selectOption">用户模式</option>
+					<option value="testMode" class="selectOption">测试模式</option>
+
+				</select>
+			</div>
+			<div id="userModeInput">
+				<label class="label">行数: </label><input type="text" class="input" id="row" class="userInput" value="10">
+				<label class="label">列数: </label><input type="text" class="input" id="col" class="userInput" value="10">
+				<label class="label">障碍物比例: </label><input type="text" class="input" id="blockPercent" class="userInput" value="0.1">
+				<label class="label">小车数量: </label><input type="text" class="input" id="agentNum" class="userInput" value="2">
+			</div>
+			<div id="testModeInput">
+				<label class="label">地图名称: </label><input type="text" class="input" id="mapName" class="userInput" value="map_8by8_12_2_ex0">
+				<span class="label">自动测试: </span><input type="checkbox" id="autotest"/>
+				<label for="autotest" class="green"></label>
+			</div>
+			<button type="button" class="btn1" id="gmap">生成地图</button>
+		</div>
+		<div class="speedBox">
+			<label class="label">速度(1-100): </label><input type="text" class="input" id="speed" class="userInput" value="80">
+			<button type="button" class="btn1" id="speedBtn">确认生效</button>
+			<!-- <input type="button" class="btn1" id="speedBtn" value="确认生效"> -->
+		</div>
+
+	</div>
+
+	<div class="popup" id="popup-1">
+	  <div class="overlay"></div>
+	  <div class="content">
+	    <div class="close-btn" onclick="togglePopup()">&times;</div>
+	    <div class="popup-title">操作手册</div>
+		<hr>
+	   	<div id="user-guide">
+	   		<ul id="document-content">
+				<li><p>设置地图参数，点击“生成地图”按钮，查看地图</p></li>
+				<li><p>点击“运行”按钮，查看算法执行过程</p></li>
+				<li><p>运行结束后，点击“重置”按钮，回到初始状态</p></li>
+				<li><p>点击地图网格，可以添加/清除障碍物</p></li>
+				<li><p>选择起点或终点，再选择Agent名称，可以设置相应起点或终点</p></li>
+			</ul>
+			<div id="document-link"><p>更详细的用户操作手册，请查看<a target="_blank" href="https://darren-ying.gitbook.io/multi-agent-system/">文档</a></p></div>
+	   	</div>
+	  </div>
+	</div>
+
+
+</body>
+
+<script>
+	function togglePopup(){
+		document.getElementById("popup-1").classList.toggle("active");
+	}
+</script>
+
+
+</html>
